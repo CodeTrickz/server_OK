@@ -6,4 +6,8 @@ Folder structure
         - report_template.html
     - data/
         - servers.json
-    - reports/
+
+server_ok.py is the main script:
+ to run use python server_ok.py argument
+ help : python server_ok.py -h 
+ 
