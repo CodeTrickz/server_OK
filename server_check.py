@@ -20,7 +20,7 @@ def run_checks():
 
 def ping_server(addr):
     print(f"{addr}: {ping(addr)}")
-    response = ping(addr) % 2
+    response = ping(addr)
     if response != False:
         return "Online"
     else:
@@ -33,15 +33,15 @@ def generate_html_report():
     with open("reports/server_status_report.html", "r") as html:
         template = html.read()
 
-    table_start = template.find("<table>")
-    table_end = template.find("</table>")
-    table_data = template[table_start:table_end]
+    div_start = template.find("<div>")
+    div_end = template.find("</div>")
+    div_data = template[div_start:div_end]
 
-    updated_table = "<table><tr><th>Server Name</th><th>Server Address</th><th>Status</th></tr>"
+    updated_div = "<div><h2>Server name</h2><h2>Server Host</h2><h2>Server Status</h2>"
     for server in servers:
-        updated_table += f"<tr><td>{server['name']}</td><td>{server['address']}</td><td>{server['status']}</td></tr>"
+        updated_div += f"<p>{server['name']}</p><p>{server['address']}</p><p>{server['status']}</p>"
 
-    report = template.replace(table_data, updated_table)
+    report = template.replace(div_data, updated_div)
 
     with open("reports/server_status_report.html", "w") as report_file:
         report_file.write(report)
