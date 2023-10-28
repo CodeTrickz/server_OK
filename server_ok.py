@@ -1,6 +1,6 @@
 import argparse 
 import sys
-from server_check import run_checks
+from server_check import run_checks, generate_html_report
 from server_manager import add_server, remove_server, list_servers
 
 def main():
@@ -16,6 +16,9 @@ def main():
     if args.c:
         print("Server Check mode")
         run_checks()
+        print("checks completed")
+        generate_html_report()
+        print("html with results is created")
     else:
          print("command used without any arguments, for more information try to run it with -h or --help flag")
 def ServerEditMenu(action):

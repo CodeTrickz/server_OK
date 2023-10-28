@@ -1,6 +1,6 @@
 import os
 import json
-import math
+
 from ping3 import ping
 
 SERVERS_FILE = "data/servers.json"
@@ -21,19 +21,32 @@ def run_checks():
 def ping_server(addr):
     print(f"{addr}: {ping(addr)}")
     response = ping(addr)
-    print(response)
     if response < 0:
         return "Offline"
     else:
         return "Online"
 
 
-def update_status(server, status):
-    print("status server")
-
-
 def generate_html_report():
-    print("maak html pagina")
+    servers = load_servers()
+
+    with open("reports/server_status_report.html", "w") as html:
+        html.write(
+            "<html><head><title>Server Status Report</title></head><body>")
+        html.write("<h1>Server Status Report</h1>")
+        html.write("<table>")
+        html.write(
+            "<tr><th>Server Name</th><th>Server Address</th><th>Status</th></tr>")
+
+        for server in servers:
+            html.write("<tr>")
+            html.write(f"<td>{server['name']}</td>")
+            html.write(f"<td>{server['address']}</td>")
+            html.write(f"<td>{server['status']}</td>")
+            html.write("</tr>")
+
+        html.write("</table>")
+        html.write("</body></html>")
 
 
 def load_servers():
