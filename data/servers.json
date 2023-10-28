@@ -1,1 +1,1 @@
-[{"name": "google.com", "address": "google.com", "status": "Online"}, {"name": "localhost", "address": "127.0.0.1", "status": "Online"}, {"name": "amazon", "address": "amazon.com", "status": "Online"}]
+[{"name": "google.com", "address": "google.com", "status": "Offline"}, {"name": "localhost", "address": "127.0.0.1", "status": "Online"}, {"name": "amazon", "address": "amazon.com", "status": "Offline"}]

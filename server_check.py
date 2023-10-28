@@ -20,11 +20,11 @@ def run_checks():
 
 def ping_server(addr):
     print(f"{addr}: {ping(addr)}")
-    response = ping(addr)
-    if response < 0:
-        return "Offline"
-    else:
+    response = ping(addr) % 2
+    if response != False:
         return "Online"
+    else:
+        return "Offline"
 
 
 def generate_html_report():
