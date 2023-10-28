@@ -30,23 +30,21 @@ def ping_server(addr):
 def generate_html_report():
     servers = load_servers()
 
-    with open("reports/server_status_report.html", "w") as html:
-        html.write(
-            "<html><head><title>Server Status Report</title></head><body>")
-        html.write("<h1>Server Status Report</h1>")
-        html.write("<table>")
-        html.write(
-            "<tr><th>Server Name</th><th>Server Address</th><th>Status</th></tr>")
+    with open("reports/server_status_report.html", "r") as html:
+        template = html.read()
 
-        for server in servers:
-            html.write("<tr>")
-            html.write(f"<td>{server['name']}</td>")
-            html.write(f"<td>{server['address']}</td>")
-            html.write(f"<td>{server['status']}</td>")
-            html.write("</tr>")
+    table_start = template.find("<table>")
+    table_end = template.find("</table>")
+    table_data = template[table_start:table_end]
 
-        html.write("</table>")
-        html.write("</body></html>")
+    updated_table = "<table><tr><th>Server Name</th><th>Server Address</th><th>Status</th></tr>"
+    for server in servers:
+        updated_table += f"<tr><td>{server['name']}</td><td>{server['address']}</td><td>{server['status']}</td></tr>"
+
+    report = template.replace(table_data, updated_table)
+
+    with open("reports/server_status_report.html", "w") as report_file:
+        report_file.write(report)
 
 
 def load_servers():
