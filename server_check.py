@@ -2,19 +2,23 @@ import os
 import json
 
 from ping3 import ping
+from datetime import datetime
 
 SERVERS_FILE = "data/servers.json"
+PREV_CHECKS = "data/PrevChecks.json"
 
 
 def run_checks():
     print("server will be checked...")
     servers = load_servers()
+    time = datetime.now()
+    timeStr = f"{time.date()}  {time.strftime('%H:%M:%S')}"
 
     for server in servers:
         addr = server["address"]
         status = ping_server(addr)
         server["status"] = status
-
+        server["lastCheck"] = timeStr
     save_servers(servers)
 
 
@@ -37,9 +41,9 @@ def generate_html_report():
     div_end = template.find("</div>")
     div_data = template[div_start:div_end]
 
-    updated_div = "<div><h2>Server name</h2><h2>Server Host</h2><h2>Server Status</h2>"
+    updated_div = "<div><h2>Server name</h2><h2>Server Host</h2><h2>Server Status</h2><h2>last Check</h2>"
     for server in servers:
-        updated_div += f"<p>{server['name']}</p><p>{server['address']}</p><p>{server['status']}</p>"
+        updated_div += f"<p>{server['name']}</p><p>{server['address']}</p><p>{server['status']}</p><p>{server['lastCheck']}</p>"
 
     report = template.replace(div_data, updated_div)
 

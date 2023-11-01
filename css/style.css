@@ -4,7 +4,7 @@ body{
 div{
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 90%;
     border: 1px solid black;
     border-radius: 1rem;
