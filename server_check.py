@@ -33,7 +33,7 @@ def run_checks():
 def ping_server(addr):
     print(f"{addr}: {ping(addr)}")
     response = ping(addr)
-    if response != False:
+    if response != False and response != None:
         return "Online"
     else:
         return "Offline"
