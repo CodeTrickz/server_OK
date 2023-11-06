@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 
 from rich.console import Console
 from rich.logging import RichHandler
@@ -68,7 +69,7 @@ def remove_server():
 def list_servers():
     servers = load_servers()
     if not servers:
-        print("No servers registered.")
+        log.warning("No servers registered.")
     else:
         print("Registered servers:")
         for i in range(len(servers)):
@@ -81,8 +82,14 @@ def load_servers():
     try:
         with open(SERVERS_FILE, 'r') as file:
             servers = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
+    except (FileNotFoundError):
+        log.exception("defined file is not found!")
+        log.warning("servers are not loaded using default variable")
         servers = []
+    except (json.JSONDecodeError):
+        log.exception(f"An error is found in {file.name}")
+        sys.exit(1)
+
     return servers
 
 

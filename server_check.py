@@ -1,8 +1,21 @@
 import os
 import json
+import logging
+import sys
 
 from ping3 import ping
 from datetime import datetime
+from rich.console import Console
+from rich.logging import RichHandler
+
+console = Console()
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
 
 
 SERVERS_FILE = "data/servers.json"
@@ -81,8 +94,13 @@ def load_servers(loadFile):
     try:
         with open(loadFile, 'r') as file:
             servers = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
+    except (FileNotFoundError):
+        log.exception("defined file is not found!")
+        log.warning("servers are not loaded using default variable")
         servers = []
+    except (json.JSONDecodeError):
+        log.exception(f"An error is found in {file.name}")
+        sys.exit(1)
     return servers
 
 
