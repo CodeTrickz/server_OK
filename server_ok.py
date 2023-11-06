@@ -1,7 +1,20 @@
 import argparse 
 import sys
+import logging
+
 from server_check import run_checks, generate_html_report
 from server_manager import add_server, remove_server, list_servers
+from rich.console import Console
+from rich.logging import RichHandler
+
+console = Console()
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
 
 def main():
     parser = argparse.ArgumentParser(description="Server Monitoring Tool")
@@ -9,18 +22,18 @@ def main():
     parser.add_argument("-c", action="store_true", help="Enter Check Mode")
     args = parser.parse_args()
     if args.e:
-        print("Server Edit mode")
+        console.print("Server Edit mode", style="bold blue")
         while True:
-            action = input("Enter 'add', 'remove', or 'list' to manage servers , use 'exit' to exit menu: ")
+            action = console.input("Enter 'add', 'remove', or 'list' to manage servers , use 'exit' to exit menu: ")
             ServerEditMenu(action)
     if args.c:
-        print("Server Check mode")
+        console.print("Server Check mode",style="bold blue")
         run_checks()
-        print("checks completed")
+        log.info("checks completed")
         generate_html_report()
-        print("html with results is created")
+        log.info("html with results is created")
     else:
-         print("command used without any arguments, for more information try to run it with -h or --help flag")
+         console.print("command used without any arguments, for more information try to run it with [bold red blink] -h [/] or [bold red blink] --help [/] flag", style="bold blue")
 def ServerEditMenu(action):
     if action == 'add':
         add_server()
@@ -31,7 +44,7 @@ def ServerEditMenu(action):
     elif action == 'exit':
         sys.exit(0)
     else:
-        print("Invalid input. Please try again.") 
+        log.error("[bold red blink]Invalid input. Please try again![/]", extra={"markup": True})
     
 
 if __name__ == "__main__":

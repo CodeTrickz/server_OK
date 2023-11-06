@@ -1,4 +1,17 @@
 import json
+import logging
+
+from rich.console import Console
+from rich.logging import RichHandler
+
+console = Console()
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
 
 SERVERS_FILE = "data/servers.json"
 
@@ -14,12 +27,13 @@ def add_server():
             "status": "Unknown",
             "lastCheck": "Unknown"
         }
-
         servers = load_servers()
         servers.append(server_data)
         save_servers(servers)
+        log.info(f"{server_name} - {server_address} Server Added")
 
-        another = input("Do you want to add another server? (yes/no): ")
+        another = console.input(
+            "Do you want to add another server? [bold red blink](yes/no)[/]: ")
         if another.lower() != 'yes':
             break
 
@@ -41,7 +55,7 @@ def remove_server():
                 input("Enter the index of the server to remove: ")) - 1
             if 0 <= server_index < len(servers):
                 removed_server = servers.pop(server_index)
-                print(
+                log.info(
                     f"Removed server: {removed_server['name']} - {removed_server['address']}")
                 save_servers(servers)
                 break

@@ -4,6 +4,7 @@ import json
 from ping3 import ping
 from datetime import datetime
 
+
 SERVERS_FILE = "data/servers.json"
 PREV_CHECKS = "data/PrevChecks.json"
 
