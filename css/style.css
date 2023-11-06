@@ -1,4 +1,8 @@
 body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
     text-align: center;
 }
 div{
@@ -9,3 +13,53 @@ div{
     border: 1px solid black;
     border-radius: 1rem;
 }
+
+
+
+h1 {
+    margin-bottom: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+
+h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #666;
+}
+
+nav {
+    background-color: #333;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff6600; 
+}
+
