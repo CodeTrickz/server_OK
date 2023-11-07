@@ -13,9 +13,8 @@
 - reports/report_template.html
 - requirements.txt
 - repository.txt
-  server_ok.py is the main script:
-  to run use python server_ok.py argument
-  help : python server_ok.py -h
+
+server_ok.py is the main script: to run use python server_ok.py argument help : python server_ok.py -h
 
 do pip install ping3 in terminal otherwise the code won't work
 do pip install rich to use terminal colors
