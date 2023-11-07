@@ -11,10 +11,15 @@
 - data/PrevChecks.json
 - reports/server_status_report.html
 - reports/report_template.html
-
-server_ok.py is the main script:
-to run use python server_ok.py argument
-help : python server_ok.py -h
+- requirements.txt
+- repository.txt
+  server_ok.py is the main script:
+  to run use python server_ok.py argument
+  help : python server_ok.py -h
 
 do pip install ping3 in terminal otherwise the code won't work
 do pip install rich to use terminal colors
+
+every requirement can you find in requirements.txt
+
+link to the repository: https://github.com/CodeTrickz/server_OK

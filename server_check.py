@@ -34,6 +34,8 @@ def run_checks():
         status = ping_server(addr)
         server["status"] = status
         server["lastCheck"] = timeStr
+        log.info(
+            f"server: {addr} is pinged with status: {status}")
         prev_checks.append({
             "address": addr,
             "name": server["name"],
@@ -84,7 +86,7 @@ def load_servers(loadFile):
             servers = json.load(file)
     except (FileNotFoundError):
         log.exception("defined file is not found!")
-        log.warning("servers are not loaded using default variable")
+        log.info(f"creating file {loadFile}")
         servers = []
     except (json.JSONDecodeError):
         log.exception(f"An error is found in {file.name}")

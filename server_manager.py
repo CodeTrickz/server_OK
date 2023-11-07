@@ -84,7 +84,7 @@ def load_servers():
             servers = json.load(file)
     except (FileNotFoundError):
         log.exception("defined file is not found!")
-        log.warning("servers are not loaded using default variable")
+        log.info(f"creating file {SERVERS_FILE}")
         servers = []
     except (json.JSONDecodeError):
         log.exception(f"An error is found in {file.name}")
